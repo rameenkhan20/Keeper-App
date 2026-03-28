@@ -1,13 +1,12 @@
-import "./../../public/styles.css";
+import React from "react";
 
 function Footer(){
-    const currentDate = new Date();
-    const currentYear = currentDate.getFullYear();
+    const currentYear = new Date().getFullYear();
 
-    retrun (
-        <div className="footer">
-            <p className="p"> Copyright © {currentYear}</p>
-        </div>
+    return (
+        <footer>
+            <p> Copyright © {currentYear}</p>
+        </footer>
     );
 }
 

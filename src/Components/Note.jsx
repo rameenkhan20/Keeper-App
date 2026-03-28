@@ -1,10 +1,10 @@
-import "./../../public/styles.css";
+import React from "react";
 
 function Note(){
     return(
         <div className="note">
-            <h1 className="h1">Title</h1>
-            <p className="p">Content</p>
+            <h1>Title</h1>
+            <p>Content</p>
         </div>
     );
 }
