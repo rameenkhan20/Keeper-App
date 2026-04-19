@@ -1,42 +1,21 @@
-import React  , {useState} from "react";
+import React, { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 import Note from "./Note";
 import CreateArea from "./CreateArea";
 
-//used computed property name
-//learnt about leveling up to the closest ancestor!
-//state lift up pattern
-
 function App() {
-  const [note , setNote] = useState({
-    title: "",
-    content: ""
-  });
+  const [notes, setNotes] = useState([]);
 
-  const [newNote , setNewNote] = useState([]);
-
-  function noteData(event){
-    const {value , name} = event.target;
-    setNote(prev => {
-      return {...prev, [name]: value}
-    })
-  }
-
-  function addNote(event){
-    event.preventDefault();
-    setNewNote(prev => {
-      return [...prev , note]
-    });
-    setNote({
-      title: "",
-      content: ""
+  function addNote(newNote) {
+    setNotes(prevNotes => {
+      return [...prevNotes, newNote];
     });
   }
 
-  function deleteNote(id){
-    setNewNote((prev) => {
-      return prev.filter((currentNote, index) => {
+  function deleteNote(id) {
+    setNotes(prevNotes => {
+      return prevNotes.filter((noteItem, index) => {
         return index !== id;
       });
     });
@@ -45,9 +24,17 @@ function App() {
   return (
     <div>
       <Header />
-      <CreateArea title={note.title} content={note.content} addText={noteData} addNoteHandler={addNote}  />
-      {newNote.map((thisNote , index) => {
-        return <Note key={index} id={index} title={thisNote.title} content={thisNote.content} noteDeletion={deleteNote} />
+      <CreateArea onAdd={addNote} />
+      {notes.map((noteItem, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={noteItem.title}
+            content={noteItem.content}
+            onDelete={deleteNote}
+          />
+        );
       })}
       <Footer />
     </div>
